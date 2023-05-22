@@ -1,4 +1,6 @@
 {
     "mongoURI": "mongodb+srv://ritish78:f74BQpTH4yOyY34T@cluster0.r1j5nrg.mongodb.net/social_network?retryWrites=true&w=majority",
-    "jwtSecret": "$ecretToken"
+    "jwtSecret": "$ecretToken",
+    "githubClientID": "5422ea88bc58090207c8",
+    "githubSecret": "9391f5537e1fa34e53511cf27e3e7289f9c68dcb"
 }

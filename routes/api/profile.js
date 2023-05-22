@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
+const request = require('request');
+const config = require('config');
 const auth = require('../../middleware/auth');
-const { check, validationResult } = require('express-validator');
+const { check, validationResult, header } = require('express-validator');
 
 
 const Profile = require('../../models/Profile');
@@ -327,6 +329,178 @@ router.delete('/experience/:exp_id', auth, async (req, res) => {
     } catch (error) {
         console.error(error.message);
         res.status(400).json({ msg: 'Deletion of experience unsuccessful' });
+    }
+})
+
+
+
+// @route       POST api/profile/education
+// @desc        Add profile education
+// @access      Private
+router.post('/education', [auth,
+    check('school', 'School name is required').not().isEmpty(),
+    check('degree', 'Degree is required').not().isEmpty(),
+    check('fieldOfStudy', 'degree is required').not().isEmpty(),
+    check('from', 'Starting date is required').not().isEmpty()
+], async (req, res) => {
+
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
+    const { 
+        school, 
+        degree, 
+        fieldOfStudy, 
+        from, 
+        to, 
+        current, 
+        description 
+    } = req.body;
+
+    const newEducation = {
+        school,
+        degree,
+        fieldOfStudy,
+        from,
+        to,
+        current,
+        description
+    };
+
+    try {
+
+        const profile = await Profile.findOne({ user: req.user.id });
+
+        profile.education.unshift(newEducation);
+
+
+        await profile.save();
+
+        return res.status(201).json({ profile });
+
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('Server Error!');
+    }
+
+});
+
+
+
+// @route       POST api/profile/education/:edu_id
+// @desc        Update user's profile education info
+// @access      Private
+router.post('/education/:edu_id', auth, async (req, res) => {
+
+    const {
+        school, 
+        degree, 
+        fieldOfStudy, 
+        from, 
+        to, 
+        current, 
+        description 
+    } = req.body;
+
+    try {
+        const updatedEducation = {
+            school, 
+            degree, 
+            fieldOfStudy, 
+            from, 
+            to, 
+            current, 
+            description 
+        };
+
+        const profile = await Profile.findOne({ user: req.user.id });
+        
+        const educationIndexToUpdate = profile.education
+                                    .map(edu => edu.id)
+                                    .indexOf(req.params.edu_id);
+        
+        //If we don't have the same education id in MongoDB as user passed in
+        //parameters, we don't update anything. 
+        if (educationIndexToUpdate === -1) {
+            return res.status(400).json({ msg: 'Invalid Education ID!' });
+        }
+        
+        profile.education.splice(educationIndexToUpdate, 1, updatedEducation);
+
+        await profile.save();
+
+        res.json(profile);
+
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send({ msg: 'Server Error!' });
+    }
+});
+
+
+
+
+// @route       DELETE api/profile/education/:edu_id
+// @desc        DELETE user's profile education by their id
+// @access      Private
+router.delete('/education/:edu_id', auth, async (req, res) => {
+    try {
+
+        const profile = await Profile.findOne({ user: req.user.id });
+
+        const educationIndexToDelete = profile.education
+                                        .map(edu => edu.id)
+                                        .indexOf(req.params.edu_id);
+        
+        //If we don't have the same education id in MongoDB as user passed in
+        //parameters, we don't update anything. 
+        if (educationIndexToDelete === -1) {
+            return res.status(400).json({ msg: 'Invalid Education ID!' });
+        }
+
+        profile.education.splice(educationIndexToDelete, 1);
+
+        await profile.save();
+
+        res.json(profile);
+
+    } catch (error) {
+        console.error(error.message);
+        res.status(400).json({ msg: 'Deletion of education unsuccessful' });
+    }
+})
+
+
+
+// @route       GET api/profile/github/:username
+// @desc        Get user's github repo from their username
+// @access      Public
+router.get('/github/:username', (req, res) => {
+    try {
+
+        const options = {
+            uri: `https://api.github.com/users/${req.params.username}/repos?per_page=5&sort=created:asc&client_id=${config.get('githubClientID')}&client_secret=${config.get('githubSecret')}`,
+            method: 'GET',
+            headers: { 'user-agent': 'node-js' }
+        };
+
+        request(options, (error, response, body) => {
+            if (error) console.error(error);
+
+            if (response.statusCode !== 200) {
+                return res.status(404).json({ msg: 'Github profile was not found!' });
+            }
+
+            res.json(JSON.parse(body));
+        })
+
+
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('Server Error!');
     }
 })
 
