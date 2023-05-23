@@ -162,6 +162,14 @@ img {
   color: #333;
 }
 
+.alert-wrapper {
+  position: fixed;
+  top: 3rem;
+  right: 2rem;
+  /* width: 50%; */
+  display: inline-block;
+}
+
 .btn-primary,
 .bg-primary,
 .badge-primary,
@@ -502,6 +510,11 @@ button {
 
   .hide-sm {
     display: none;
+  }
+
+  .alert-wrapper {
+    position: fixed;
+    top: 6rem;
   }
 
   /* Text Styles */
