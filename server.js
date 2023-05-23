@@ -6,6 +6,10 @@ const app = express();
 //Connect to MongoDB
 connectMongo();
 
+//Initializing middleware
+app.use(express.json({ extended: false }));
+
+
 const EXPRESS_SERVER_PORT = process.env.EXPRESS_SERVER_PORT || 5000;
 
 
