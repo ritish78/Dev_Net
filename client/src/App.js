@@ -1,6 +1,9 @@
 import './App.css';
 import Navbar from './component/Navbar';
 import Landing from './component/Landing';
+import Login from './component/auth/Login';
+import Register from './component/auth/Register';
+
 import {
   BrowserRouter as Router,
   Route,
@@ -11,12 +14,12 @@ import {
 function App() {
   return (
     <Router>
-      <>
         <Navbar />
-        <Routes>
-          <Route exact path='/' element={<Landing />} />
-        </Routes>
-      </>
+          <Routes>
+            <Route path='/' element={<Landing />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/register' element={<Register />} />
+          </Routes>
     </Router>
   );
 }
