@@ -6,7 +6,11 @@ const jwt = require('jsonwebtoken');
 const config = require('config');
 const { check, validationResult } = require('express-validator');
 
+const auth = require('..//..//middleware/auth');
 const User = require('../../models/Users');
+const Profile = require('../../models/Profile');
+const Post = require('../../models/Post');
+
 
 
 // @route       POST api/users
@@ -86,6 +90,32 @@ router.post('/', [
 
 })
 
+
+
+// @route       DELETE api/users
+// @desc        Delete profile, user and posts
+// @access      Private
+router.delete('/', auth, async (req, res) => {
+    try {
+        //Remove user's posts
+        await Post.findOneAndDelete({ user: req.user.id });
+
+        //Removing profile
+        //Profile.findOneAndRemove() deletes the profile and returns the removed profile
+        //Profile.findOneAndDelete() deletes the profile but does not return it
+        await Profile.findOneAndDelete({ user: req.user.id });
+
+        //Removing user
+        await User.findOneAndDelete({ _id: req.user.id });
+        
+
+        res.json({ msg: 'User and their profile and posts deleted successfully!' });
+
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ msg: error.message });
+    }
+})
 
 
 module.exports = router;

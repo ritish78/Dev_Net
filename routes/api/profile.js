@@ -7,7 +7,8 @@ const { check, validationResult, header } = require('express-validator');
 
 
 const Profile = require('../../models/Profile');
-const User = require('../../models/Users')
+const User = require('../../models/Users');
+const Post = require('../../models/Post');
 
 
 // @route       GET api/profile/me
@@ -47,36 +48,12 @@ router.post('/', [auth, [
         return res.status(400).json({ errors: errors.array() })
     }
 
-    const {
-        company,
-        website,
-        location,
-        bio,
-        status,
-        githubusername,
-        skills,
-        youtube,
-        facebook,
-        twitter,
-        portfolio,
-        linkedin
-    } = req.body;
 
     //Build Profile object
     const profileFields = {};
     profileFields.social = {};
     profileFields.user = req.user.id;
 
-    // if (company) profileFields.company = company;
-    // if (website) profileFields.website = website;
-    // if (location) profileFields.location = location;
-    // if (bio) profileFields.bio = bio;
-    // if (status) profileFields.status = status;
-    // if (githubusername) profileFields.username;
-
-    // if (skills) {
-    //     profileFields.skills = skills.split(',').map(skill => skill.trim());
-    // }
 
     const fieldsToEnterProfile = [ 'company', 'website', 'location', 'status', 'skills', 'bio', 'githubusername', 'discord', 'youtube', 'twitter', 'linkedin', 'facebook' ];
     const userInputData = Object.keys(req.body);
@@ -171,8 +148,8 @@ router.get('/user/:user_id', async (req, res) => {
 // @access      Private
 router.delete('/', auth, async (req, res) => {
     try {
-        TODO:
         //Remove user's posts
+        await Post.findOneAndDelete({ user: req.user.id });
 
         //Removing profile
         //Profile.findOneAndRemove() deletes the profile and returns the removed profile
@@ -229,11 +206,14 @@ router.post('/experience', [auth,
         description
     };
 
+    
     try {
-
+        
         const profile = await Profile.findOne({ user: req.user.id });
+        
+        console.log(profile);
 
-        profile.experience.unshift(newExperience);
+        profile.experience.push(newExperience);
 
 
         await profile.save();
