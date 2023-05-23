@@ -5,6 +5,9 @@ import Login from './component/auth/Login';
 import Register from './component/auth/Register';
 import Alert from './component/layout/Alert';
 
+import { useEffect } from 'react';
+import { loadUser } from './actions/auth';
+
 //Redux imports
 import { Provider } from 'react-redux';
 import store from './redux/store';
@@ -17,6 +20,12 @@ import {
 } from 'react-router-dom';
 
 function App() {
+  useEffect(() => {
+    if (localStorage.token) {
+      store.dispatch(loadUser());
+    }
+  }, []);
+
   return (
     <Provider store={store}>
       <Router>
