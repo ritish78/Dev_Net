@@ -16,32 +16,32 @@ const Register = () => {
             { ...formData, [e.target.name]: e.target.value }
         );
 
-    const onSubmit = async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (password !== password2) {
             alert('Passwords do not match!');
         } else {
-            const newUser = {
-                name,
-                email,
-                password,
-            }
+            // const newUser = {
+            //     name,
+            //     email,
+            //     password,
+            // }
 
-            try {
-                const config = {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                }
+            // try {
+            //     const config = {
+            //         headers: {
+            //             'Content-Type': 'application/json'
+            //         }
+            //     }
 
-                const body = JSON.stringify(newUser);
+            //     const body = JSON.stringify(newUser);
 
-                const res = await axios.post('/api/users', body, config);
-                console.log(res.data);
-            } catch (error) {
+            //     const res = await axios.post('/api/users', body, config);
+            //     console.log(res.data);
+            // } catch (error) {
 
-            }
+            // }
         }
     }
 
@@ -49,7 +49,7 @@ const Register = () => {
     <section className="container">
       <h1 className="large text-primary">Sign Up</h1>
       <p className="lead"><i className="fas fa-user"></i> Create Your Account</p>
-      <form className="form" onSubmit={e => onSubmit(e)}>
+      <form className="form" onSubmit={e => handleSubmit(e)}>
         <div className="form-group">
           <input 
                 type="text" 
