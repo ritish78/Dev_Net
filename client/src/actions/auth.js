@@ -6,7 +6,8 @@ import {
     USER_LOADED,
     AUTH_ERROR,
     LOGIN_SUCCESS,
-    LOGIN_FAIL
+    LOGIN_FAIL,
+    LOGOUT
 } from './constant';
 import setAuthToken from '../utils/setAuthToken';
 
@@ -102,4 +103,10 @@ export const loadUser = () => async (dispatch) => {
             type: LOGIN_FAIL
         })
     }
+ }
+
+
+ //Logout and Clear profile
+ export const logout = () => dispatch => {
+    dispatch({ type: LOGOUT })
  }

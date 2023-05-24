@@ -4,6 +4,8 @@ import Landing from './component/layout/Landing';
 import Login from './component/auth/Login';
 import Register from './component/auth/Register';
 import Alert from './component/layout/Alert';
+import Dashboard from './component/layout/dashboard/Dashboard';
+import PrivateRoute from './component/routing/PrivateRoute';
 
 import { useEffect } from 'react';
 import { loadUser } from './actions/auth';
@@ -18,12 +20,16 @@ import {
   Routes,
   Navigate
 } from 'react-router-dom';
+import { LOGOUT } from './actions/constant';
 
 function App() {
   useEffect(() => {
     if (localStorage.token) {
       store.dispatch(loadUser());
-    }
+    } 
+    // else {
+    //   store.dispatch({ type: LOGOUT });
+    // }
   }, []);
 
   return (
@@ -35,6 +41,10 @@ function App() {
               <Route path='/' element={<Landing />} />
               <Route path='/login' element={<Login />} />
               <Route path='/register' element={<Register />} />
+              <Route 
+                  path='/dashboard' 
+                  element={<PrivateRoute component={Dashboard} />}
+              />
             </Routes>
       </Router>
     </Provider>
