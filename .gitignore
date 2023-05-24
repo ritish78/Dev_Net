@@ -1,2 +1,7 @@
 node_modules
+<<<<<<< HEAD
 config/default.json
+=======
+config/default.json
+default.json
+>>>>>>> client
