@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Navigate, Link } from 'react-router-dom';
 import { getCurrentUserProfile } from '../../../actions/profile';
+import DashboardActions from './DashboardActions';
 import Spinner from './Spinner';
 
 const Dashboard = props => {
@@ -10,6 +11,8 @@ const Dashboard = props => {
     const { getCurrentUserProfile, auth, profile: { profile, loading } } = props;
 
     useEffect(() => {
+        //TODO:
+        //Check if token exists befire fetching
         getCurrentUserProfile();
     }, []);
 
@@ -18,7 +21,11 @@ const Dashboard = props => {
         <p className="lead">
             <i className="fas fa-user"></i> Welcome { auth.user && auth.user.name  }
         </p>
-        { profile !== null ? <div></div> : (
+        { profile !== null ? 
+            <div>
+                <DashboardActions />
+            </div> 
+            : (
             <div>
                 <p>You have not setup a profile. You can enter your profile details below:</p>
                 <Link to='/create-profile' className="btn btn-primary my-1">

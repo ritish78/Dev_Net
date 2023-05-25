@@ -50,6 +50,10 @@ function App() {
                   path='/create-profile' 
                   element={<PrivateRoute component={CreateProfile} />}
               />
+              <Route
+                  path='/edit-profile'
+                  element={<PrivateRoute component={CreateProfile} />}
+              />    
             </Routes>
       </Router>
     </Provider>

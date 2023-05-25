@@ -160,6 +160,8 @@ img {
   opacity: 0.9;
   background: var(--light-color);
   color: #333;
+  border-radius: 5px;
+  box-shadow: 2px 2px #333;
 }
 
 .alert-wrapper {

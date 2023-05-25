@@ -1,32 +1,73 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link, useMatch, useNavigate } from 'react-router-dom';
-import { createOrUpdateProfile } from '..//..//..//actions/profile';
+import { createOrUpdateProfile, getCurrentUserProfile } from '..//..//..//actions/profile';
 
+
+//We are declaring initialFormData outside of our CreateProfile
+//component so that useEffect won't be triggered when we load
+//in profile information to populate the profile info when editing
+//current user's profile
+
+const initialFormData = {
+    company: '',
+    website: '',
+    location: '',
+    status: '',
+    skills: '',
+    bio: '',
+    githubusername: '',
+    discord: '',
+    youtube: '',
+    twitter: '',
+    linkedin: '',
+    facebook: ''
+};
 
 const CreateProfile = props => {
+    const { createOrUpdateProfile, getCurrentUserProfile, profile } = props;
     
-    const [formData, setFormData] = useState({
-        company: '',
-        website: '',
-        location: '',
-        status: '',
-        skills: '',
-        bio: '',
-        githubusername: '',
-        discord: '',
-        youtube: '',
-        twitter: '',
-        linkedin: '',
-        facebook: ''
-    });
+    const [formData, setFormData] = useState(initialFormData);
 
     const [displaySocialInputs, toggleSocialInputs] = useState(false);
 
-    const { createOrUpdateProfile } = props;
+    useEffect(() => {
+        if (!profile) getCurrentUserProfile();
+
+        //Once the loading is finished and if we have
+        //a profile then we can fill in the form data
+        if (profile.profile && !profile.loading) {
+            const profileData = { ...initialFormData };
+
+            //Creating keys of company, website, location and other.
+            //Skills are in array so they need to be separated by a comma
+            for (const key in profile.profile) {
+                if (key in profileData) {
+                    profileData[key] = profile.profile[key];
+                }
+            }
+
+            //Creating keys of user's social media links and handles
+            for (const key in profile.profile.social) {
+                if (key in profileData) {
+                    profileData[key] = profile.profile.social[key];
+                }
+            }
+
+            //Displaying skills by separating with a comma
+            if (Array.isArray(profileData.skills)) {
+                profileData.skills = profileData.skills.join(', ');
+            }
+
+            //Setting local state with the profileData
+            setFormData(profileData);
+        }
+    }, [profile.loading, getCurrentUserProfile, profile]);
+
 
     const navigate = useNavigate();
+
 
     const {
         company,
@@ -50,10 +91,10 @@ const CreateProfile = props => {
     });
 
     const onSubmitHandler = e => {
-        // const editing = profile ? true : false;
+        const editing = profile ? true : false;
         e.preventDefault();
 
-        createOrUpdateProfile(formData).then(() => {
+        createOrUpdateProfile(formData, editing).then(() => {
             navigate('/dashboard'); 
         })
     }
@@ -227,5 +268,8 @@ CreateProfile.propTypes = {
     createOrUpdateProfile: PropTypes.func.isRequired
 }
 
+const mapStateToProps = state => ({
+    profile: state.profile
+});
 
-export default connect(null, { createOrUpdateProfile })(CreateProfile);
+export default connect(mapStateToProps, { createOrUpdateProfile })(CreateProfile);

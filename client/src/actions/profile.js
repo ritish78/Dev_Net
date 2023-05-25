@@ -40,7 +40,7 @@ export const createOrUpdateProfile = (formData, edit = false) => async (dispatch
 
         const res = await axios.post('/api/profile', formData, config);
 
-        console.log('Response from server:', res);
+        console.log('Response from server after saving profile info:', res);
 
         dispatch({
             type: GET_PROFILE,
@@ -50,7 +50,7 @@ export const createOrUpdateProfile = (formData, edit = false) => async (dispatch
 
         dispatch(
             setAlert(
-                edit ? 'Profile Updated' : 'Profile Created'
+                edit ? 'Profile Updated' : 'Profile Created', 'success'
             )
         );
 
