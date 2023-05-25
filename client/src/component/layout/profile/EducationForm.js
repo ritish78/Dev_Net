@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { addEducationInfo } from '../../../actions/profile';
 
 
 const initialState = {
@@ -13,6 +16,8 @@ const initialState = {
 }
 
 const EducationForm = (props) => {
+
+    const { addEducationInfo } = props;
 
     const [formData, setFormData] = useState(initialState);
 
@@ -37,6 +42,17 @@ const EducationForm = (props) => {
         current: !current
     });
 
+    const navigate = useNavigate();
+
+    const onSubmitHandler = e => {
+        e.preventDefault();
+
+        addEducationInfo(formData).then(() => {
+            navigate('/dashboard');
+        })
+    }
+
+
     return (
         <section className="container">
         <h1 className="large text-primary">
@@ -47,7 +63,7 @@ const EducationForm = (props) => {
             Add any school, bootcamp, etc that you have attended
         </p>
         <small>* = required field</small>
-        <form className="form">
+        <form className="form" onSubmit={e => onSubmitHandler(e)}>
             <div className="form-group">
             <input
                     type="text"
@@ -72,7 +88,7 @@ const EducationForm = (props) => {
             <input 
                     type="text" 
                     placeholder="Field Of Study" 
-                    name="fieldofstudy" 
+                    name="fieldOfStudy" 
                     value={fieldOfStudy}
                     onChange={e => onChangeHandler(e)}
                 />
@@ -126,4 +142,9 @@ const EducationForm = (props) => {
 }
 
 
-export default EducationForm;
+EducationForm.propType = {
+    addEducationInfo: PropTypes.func.isRequired
+}
+
+
+export default connect(null, { addEducationInfo })(EducationForm);

@@ -114,3 +114,43 @@ export const createExperience = (formData) => async (dispatch) => {
         })
     }
 }
+
+
+//Create Education info of the user
+export const addEducationInfo = (formData) => async (dispatch) => {
+    try {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        
+        const res = await axios.post('/api/profile/education', formData, config);
+
+        console.log('Response from server after adding education info:', res);
+
+        dispatch({
+            type: UPDATE_PROFILE,
+            payload: res.data
+        });
+
+        dispatch(
+            setAlert('Education Info Addded', 'success')
+        );
+        
+    } catch (error) {
+        const errors = error.response.data.errors;
+
+        if (errors) {
+            errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+        }
+
+        dispatch({
+            type: PROFILE_ERROR,
+            payload: { 
+                msg: error.reponse,
+                status: error.response.status
+             }
+        })
+    }
+}
