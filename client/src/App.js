@@ -6,6 +6,7 @@ import Register from './component/auth/Register';
 import Alert from './component/layout/Alert';
 import Dashboard from './component/layout/dashboard/Dashboard';
 import PrivateRoute from './component/routing/PrivateRoute';
+import CreateProfile from './component/layout/profile/CreateProfile';
 
 import { useEffect } from 'react';
 import { loadUser } from './actions/auth';
@@ -44,6 +45,10 @@ function App() {
               <Route 
                   path='/dashboard' 
                   element={<PrivateRoute component={Dashboard} />}
+              />
+              <Route 
+                  path='/create-profile' 
+                  element={<PrivateRoute component={CreateProfile} />}
               />
             </Routes>
       </Router>

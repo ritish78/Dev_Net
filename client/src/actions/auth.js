@@ -7,7 +7,8 @@ import {
     AUTH_ERROR,
     LOGIN_SUCCESS,
     LOGIN_FAIL,
-    LOGOUT
+    LOGOUT,
+    CLEAR_PROFILE
 } from './constant';
 import setAuthToken from '../utils/setAuthToken';
 
@@ -19,12 +20,12 @@ export const loadUser = () => async (dispatch) => {
         setAuthToken(localStorage.token);
     }
 
-    console.log('Token:', localStorage.token);
+    // console.log('Token:', localStorage.token);
 
     try {
         const res = await axios.get('/api/auth');
         
-        console.log('Response: ', res);
+        // console.log('Response: ', res);
 
         dispatch({
             type: USER_LOADED,
@@ -84,7 +85,7 @@ export const loadUser = () => async (dispatch) => {
     try {
         const res = await axios.post('/api/auth', body, config);
 
-        console.log('Response when logging: ', res);
+        // console.log('Response when logging: ', res);
 
         dispatch({
             type: LOGIN_SUCCESS,
@@ -108,5 +109,6 @@ export const loadUser = () => async (dispatch) => {
 
  //Logout and Clear profile
  export const logout = () => dispatch => {
-    dispatch({ type: LOGOUT })
+    dispatch({ type: CLEAR_PROFILE });
+    dispatch({ type: LOGOUT });
  }
