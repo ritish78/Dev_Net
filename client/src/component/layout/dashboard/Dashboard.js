@@ -5,6 +5,8 @@ import { Navigate, Link } from 'react-router-dom';
 import { getCurrentUserProfile } from '../../../actions/profile';
 import DashboardActions from './DashboardActions';
 import Spinner from './Spinner';
+import Experience from './Experience';
+import Education from './Education';
 
 const Dashboard = props => {
 
@@ -24,6 +26,8 @@ const Dashboard = props => {
         { profile !== null ? 
             <div>
                 <DashboardActions />
+                <Experience experience={profile.experience} />
+                <Education educationInfo={profile.education} />
             </div> 
             : (
             <div>
