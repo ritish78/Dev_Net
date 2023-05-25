@@ -2,7 +2,9 @@ import axios from 'axios';
 import { setAlert } from './alert';
 import {
     GET_PROFILE,
-    PROFILE_ERROR
+    PROFILE_ERROR,
+    GET_EXPERIENCE,
+    UPDATE_PROFILE
 } from './constant';
 
 
@@ -53,6 +55,48 @@ export const createOrUpdateProfile = (formData, edit = false) => async (dispatch
                 edit ? 'Profile Updated' : 'Profile Created', 'success'
             )
         );
+
+    } catch (error) {
+        const errors = error.response.data.errors;
+
+        if (errors) {
+            errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+        }
+
+        dispatch({
+            type: PROFILE_ERROR,
+            payload: { 
+                msg: error.reponse,
+                status: error.response.status
+             }
+        })
+    }
+}
+
+
+//Create Experience info of the user
+export const createExperience = (formData) => async (dispatch) => {
+    try {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+
+        const res = await axios.post('/api/profile/experience', formData, config);
+
+        // console.log('Response from server after adding experience:', res);
+
+        dispatch({
+            type: UPDATE_PROFILE,
+            payload: res.data
+        });
+
+        dispatch(
+            setAlert('Experience Added', 'success')
+        );
+
+        // return res.data;
 
     } catch (error) {
         const errors = error.response.data.errors;

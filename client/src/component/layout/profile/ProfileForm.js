@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link, useMatch, useNavigate } from 'react-router-dom';
-import { createOrUpdateProfile, getCurrentUserProfile } from '..//..//..//actions/profile';
+import { createOrUpdateProfile, getCurrentUserProfile } from '../../../actions/profile';
 
 
 //We are declaring initialFormData outside of our CreateProfile
@@ -25,7 +25,7 @@ const initialFormData = {
     facebook: ''
 };
 
-const CreateProfile = props => {
+const ProfileForm = props => {
     const { createOrUpdateProfile, getCurrentUserProfile, profile } = props;
     
     const [formData, setFormData] = useState(initialFormData);
@@ -264,7 +264,7 @@ const CreateProfile = props => {
     )
 }
 
-CreateProfile.propTypes = {
+ProfileForm.propTypes = {
     createOrUpdateProfile: PropTypes.func.isRequired
 }
 
@@ -272,4 +272,7 @@ const mapStateToProps = state => ({
     profile: state.profile
 });
 
-export default connect(mapStateToProps, { createOrUpdateProfile })(CreateProfile);
+export default connect(
+                    mapStateToProps, 
+                    { createOrUpdateProfile })
+                    (ProfileForm);

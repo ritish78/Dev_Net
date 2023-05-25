@@ -3,10 +3,12 @@ import Navbar from './component/layout/Navbar';
 import Landing from './component/layout/Landing';
 import Login from './component/auth/Login';
 import Register from './component/auth/Register';
-import Alert from './component/layout/Alert';
+// import Alert from './component/layout/Alert';
 import Dashboard from './component/layout/dashboard/Dashboard';
 import PrivateRoute from './component/routing/PrivateRoute';
-import CreateProfile from './component/layout/profile/CreateProfile';
+import ProfileForm from './component/layout/profile/ProfileForm';
+import ExperienceForm from './component/layout/profile/ExperienceForm';
+import EducationForm  from './component/layout/profile/EducationForm';
 
 import { useEffect } from 'react';
 import { loadUser } from './actions/auth';
@@ -23,6 +25,7 @@ import {
 } from 'react-router-dom';
 import { LOGOUT } from './actions/constant';
 
+
 function App() {
   useEffect(() => {
     if (localStorage.token) {
@@ -37,7 +40,7 @@ function App() {
     <Provider store={store}>
       <Router>
           <Navbar />
-          <Alert />
+          {/* <Alert /> */}
             <Routes>
               <Route path='/' element={<Landing />} />
               <Route path='/login' element={<Login />} />
@@ -48,11 +51,19 @@ function App() {
               />
               <Route 
                   path='/create-profile' 
-                  element={<PrivateRoute component={CreateProfile} />}
+                  element={<PrivateRoute component={ProfileForm} />}
               />
               <Route
                   path='/edit-profile'
-                  element={<PrivateRoute component={CreateProfile} />}
+                  element={<PrivateRoute component={ProfileForm} />}
+              />
+              <Route
+                  path='/add-experience'
+                  element={<PrivateRoute component={ExperienceForm} />}
+              />    
+              <Route
+                  path='/add-education'
+                  element={<PrivateRoute component={EducationForm} />}
               />    
             </Routes>
       </Router>
