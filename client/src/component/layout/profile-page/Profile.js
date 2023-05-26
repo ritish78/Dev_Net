@@ -9,6 +9,7 @@ import ProfileTop from './ProfileTop';
 import ProfileAbout from './ProfileAbout';
 import ProfileExperience from './ProfileExperience';
 import ProfileEducation from './ProfileEducation';
+import ProfileGithubRepo from './ProfileGithubRepo';
 
 const Profile = (props) => {
     const { getUserProfileById, profile: { profile }, auth } = props;
@@ -44,6 +45,14 @@ const Profile = (props) => {
                             <div className="profile-edu bg-white p-2">
                                 <ProfileEducation profile={profile} />
                             </div>
+                            
+                            {
+                                profile.githubusername && (
+                                    <div className="profile-github">
+                                        <ProfileGithubRepo profile={profile} />
+                                    </div>
+                                )
+                            }
                         </div>    
                     </div>
                 ) }

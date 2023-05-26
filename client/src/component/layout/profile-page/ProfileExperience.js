@@ -13,7 +13,7 @@ const ProfileExperience = props => {
             { experience && experience.length > 0 ? experience.map(exp => {
                 return (
                     <div key={exp._id} className="boxborder">
-                        <h3 class="text-dark">{exp.company}</h3>
+                        <h3 className="text-dark">{exp.company}</h3>
                         <p>{formatDate(exp.from)} {' to '} 
                             {exp.to ? formatDate(exp.to) : 'Present'}</p>
                         <p><strong>Position: </strong>
