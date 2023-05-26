@@ -512,6 +512,16 @@ button {
   margin-bottom: 0.5rem;
 }
 
+.boxborder {
+  border-bottom: 1px solid gray;
+  padding: 10px 0px;
+}
+
+.boxborder:last-child {
+  border-bottom: none;
+  padding-bottom: none;
+}
+
 /* Mobile Styles */
 @media (max-width: 700px) {
   .container {

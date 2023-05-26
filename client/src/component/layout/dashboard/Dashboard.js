@@ -16,7 +16,7 @@ const Dashboard = props => {
         //TODO:
         //Check if token exists befire fetching
         getCurrentUserProfile();
-    }, []);
+    }, [getCurrentUserProfile]);
 
     return loading && profile === null ? <Spinner /> : <div className="container">
         <h1 className="large text-primary">DASHBOARD</h1>

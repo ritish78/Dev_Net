@@ -10,7 +10,7 @@ const Profiles = props => {
 
     useEffect(() => {
         getAllUserProfile();
-    }, [])
+    }, [getAllUserProfile])
 
     return (
         <div className="container">
