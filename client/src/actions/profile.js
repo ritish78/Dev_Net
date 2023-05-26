@@ -3,8 +3,9 @@ import { setAlert } from './alert';
 import {
     GET_PROFILE,
     PROFILE_ERROR,
-    GET_EXPERIENCE,
-    UPDATE_PROFILE
+    UPDATE_PROFILE,
+    DELETE_ACCOUNT,
+    CLEAR_PROFILE
 } from './constant';
 
 
@@ -152,5 +153,97 @@ export const addEducationInfo = (formData) => async (dispatch) => {
                 status: error.response.status
              }
         })
+    }
+}
+
+
+//Delete experience by its id
+export const deleteExperienceById = id => async (dispatch) => {
+    try {
+
+        const res = await axios.delete(`/api/profile/experience/${id}`);
+
+        dispatch({
+            type: UPDATE_PROFILE,
+            payload: res.data
+        });
+
+        dispatch(
+            setAlert('Experience info deleted successfully', 'success')
+        )
+
+    } catch (error) {
+        dispatch({
+            type: PROFILE_ERROR,
+            payload: { 
+                msg: error.reponse,
+                status: error.response.status
+             }
+        })
+    }
+}
+
+
+//Delete education by its id
+export const deleteEducationById = id => async (dispatch) => {
+    try {
+
+        const res = await axios.delete(`/api/profile/education/${id}`);
+
+        dispatch({
+            type: UPDATE_PROFILE,
+            payload: res.data
+        });
+
+        dispatch(
+            setAlert('Education info deleted successfully', 'success')
+        )
+
+    } catch (error) {
+        dispatch({
+            type: PROFILE_ERROR,
+            payload: { 
+                msg: error.reponse,
+                status: error.response.status
+             }
+        })
+    }
+}
+
+
+//Delete User's account and profile
+export const deleteAccount = () => async (dispatch) => {
+    if (window.confirm('Are you sure that you want to delete your account? This action can not be reversed!')){
+
+        try {
+            /*
+                There are two api endpoints to delete user, and their
+                profile. /api/users enpoint deletes the whole user including
+                their profile and posts. We will be deleting their 
+                profile with a DELETE request on /api/profile.
+            */
+
+            const res = await axios.delete('/api/profile');
+    
+            dispatch({
+                type: CLEAR_PROFILE
+            });
+            dispatch({
+                type: DELETE_ACCOUNT
+            });
+    
+            dispatch(
+                setAlert('Your account has been deleted successfully', 'success')
+            )
+    
+        } catch (error) {
+            dispatch({
+                type: PROFILE_ERROR,
+                payload: { 
+                    msg: error.reponse,
+                    status: error.response.status
+                 }
+            })
+        }
     }
 }

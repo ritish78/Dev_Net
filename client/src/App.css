@@ -261,6 +261,10 @@ img {
   color: #888;
 }
 
+input:focus {
+  outline: 3px solid var(--secondary-color);
+}
+
 .form input[type='text'],
 .form input[type='email'],
 .form input[type='password'],
@@ -294,7 +298,7 @@ button {
 .form .social-input i.fa-facebook {
   color: #3b5998;
 }
-.form .social-input i.fa-instagram {
+.form .social-input i.fa-discord {
   color: #3f729b;
 }
 .form .social-input i.fa-youtube {
