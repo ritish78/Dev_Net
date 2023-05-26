@@ -5,7 +5,10 @@ import {
     PROFILE_ERROR,
     UPDATE_PROFILE,
     DELETE_ACCOUNT,
-    CLEAR_PROFILE
+    CLEAR_PROFILE,
+    GET_ALL_PROFILES,
+    GET_REPOS,
+    RESET_PROFILE_LOADING
 } from './constant';
 
 
@@ -13,6 +16,53 @@ import {
 export const getCurrentUserProfile = () => async (dispatch) => {
     try {
         const res = await axios.get('/api/profile/me');
+
+        console.log('Response from server:', res);
+
+        dispatch({ 
+            type: GET_PROFILE,
+            payload: res.data
+         });
+    } catch (error) {
+        dispatch({
+            type: PROFILE_ERROR,
+            payload: { 
+                msg: error.reponse,
+                status: error.response.status
+             }
+        })
+    }
+}
+
+
+//Get all user's profile
+export const getAllUserProfile = () => async (dispatch) => {
+    dispatch({ type: CLEAR_PROFILE });
+    dispatch({ type: RESET_PROFILE_LOADING });
+
+    try {
+        const res = await axios.get('/api/profile');
+
+        dispatch({ 
+            type: GET_ALL_PROFILES,
+            payload: res.data
+         });
+    } catch (error) {
+        dispatch({
+            type: PROFILE_ERROR,
+            payload: { 
+                msg: error.reponse,
+                status: error.response.status
+             }
+        })
+    }
+}
+
+
+//Get profile by its id
+export const getUserProfileById = (userId) => async (dispatch) => {
+    try {
+        const res = await axios.get(`/api/profile/user/${userId}`);
 
         console.log('Response from server:', res);
 
@@ -245,5 +295,30 @@ export const deleteAccount = () => async (dispatch) => {
                  }
             })
         }
+    }
+}
+
+
+
+//Get Github repos of user
+//Get current user's profile
+export const getUserGithubRepo = (githubUsername) => async (dispatch) => {
+    try {
+        const res = await axios.get(`/api/profile/github/${githubUsername}`);
+
+        console.log('Response from server:', res);
+
+        dispatch({ 
+            type: GET_REPOS,
+            payload: res.data
+         });
+    } catch (error) {
+        dispatch({
+            type: PROFILE_ERROR,
+            payload: { 
+                msg: error.reponse,
+                status: error.response.status
+             }
+        })
     }
 }

@@ -17,6 +17,12 @@ const Navbar = (props) => {
           </Link>
         </li>
         <li>
+          <Link to='/get-all-profiles'>
+              <i className='fa-solid fa-users'></i>{' '}
+              <span className='hide-sm'>Other Developers</span>
+          </Link>
+        </li>
+        <li>
           <a onClick={logout} href='#!'>
             <i className='fas fa-sign-out-alt'></i>{' '}
             <span className='hide-sm'>Logout</span>
@@ -28,8 +34,9 @@ const Navbar = (props) => {
   const guestLinks = (
     <ul>
         <li>
-          <Link to="#!">
-            Developers
+          <Link to='/get-all-profiles'>
+              <i className='fa-solid fa-users'></i>{' '}
+              <span className='hide-sm'>Other Developers</span>
           </Link>
         </li>
         <li>
