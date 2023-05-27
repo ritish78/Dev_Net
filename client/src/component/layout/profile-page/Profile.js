@@ -49,7 +49,7 @@ const Profile = (props) => {
                             {
                                 profile.githubusername && (
                                     <div className="profile-github">
-                                        <ProfileGithubRepo profile={profile} />
+                                        <ProfileGithubRepo githubusername={profile.githubusername} />
                                     </div>
                                 )
                             }

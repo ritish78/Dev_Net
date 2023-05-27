@@ -218,7 +218,7 @@ router.post('/experience', [auth,
 
         await profile.save();
 
-        return res.status(201).json({ profile });
+        return res.status(201).json(profile);
 
     } catch (error) {
         console.error(error.message);
@@ -359,7 +359,7 @@ router.post('/education', [auth,
 
         await profile.save();
 
-        return res.status(201).json({ profile });
+        return res.status(201).json(profile);
 
     } catch (error) {
         console.error(error.message);

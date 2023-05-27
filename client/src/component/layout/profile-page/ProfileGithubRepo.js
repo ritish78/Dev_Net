@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 const ProfileGithubRepo = props => {
-    const {  profile: { githubusername }, repos, getUserGithubRepo } = props;
+    const { githubusername , repos, getUserGithubRepo } = props;
     useEffect(() => {
         getUserGithubRepo(githubusername);
     }, [getUserGithubRepo, githubusername]);
@@ -19,40 +19,28 @@ const ProfileGithubRepo = props => {
             <h2 className="text-primary my-1">
             <i className="fab fa-github"></i> Github Repos
           </h2>
-          <div className="repo bg-white p-1 my-1">
-            <div>
-              <h4><Link to="#" target="_blank"
-                  rel="noopener noreferrer">Repo One</Link></h4>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Repellat, laborum!
-              </p>
-            </div>
-            <div>
-              <ul>
-                <li className="badge badge-primary">Stars: 44</li>
-                <li className="badge badge-dark">Watchers: 21</li>
-                <li className="badge badge-light">Forks: 25</li>
-              </ul>
-            </div>
-          </div>
-          <div className="repo bg-white p-1 my-1">
-            <div>
-              <h4><a href="#" target="_blank"
-                  rel="noopener noreferrer">Repo Two</a></h4>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Repellat, laborum!
-              </p>
-            </div>
-            <div>
-              <ul>
-                <li className="badge badge-primary">Stars: 44</li>
-                <li className="badge badge-dark">Watchers: 21</li>
-                <li className="badge badge-light">Forks: 25</li>
-              </ul>
-            </div>
-            </div>
+          
+            { repos && repos.length > 0 ? repos.map(repo => {
+              return (
+                <div key={repo.id} className="repo bg-white p-1 my-1">
+                  <div>
+                    <h4><a href={repo.html_url} target="_blank" rel="noopener noreferrer">{repo.name}</a> </h4>
+                    <p>
+                      {repo.description}
+                    </p>
+                  </div>
+                  <div>
+                    <ul>
+                      <li className="badge badge-primary"><i className="fa-solid fa-star"></i>  Stars: <span>{repo.stargazers_count}</span></li>
+                      <li className="badge badge-dark"><i class="fa-solid fa-eye"></i>  Watchers: <span>{repo.watchers_count}</span></li>
+                      <li className="badge badge-light"><i class="fa-solid fa-code-fork"></i>  Forks: <span>{repo.forks_count}</span></li>
+                    </ul>
+                  </div>
+                </div>
+
+              )}) : (
+                <h3>No Repo in user's profile.</h3>
+              )}
         </div>
     )
 }
