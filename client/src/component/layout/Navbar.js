@@ -23,6 +23,12 @@ const Navbar = (props) => {
           </Link>
         </li>
         <li>
+          <Link to='/posts'>
+              <i className="fa-solid fa-list"></i>{' '}
+              <span className='hide-sm'>Posts</span>
+          </Link>
+        </li>
+        <li>
           <a onClick={logout} href='#!'>
             <i className='fas fa-sign-out-alt'></i>{' '}
             <span className='hide-sm'>Logout</span>
@@ -41,12 +47,13 @@ const Navbar = (props) => {
         </li>
         <li>
           <Link to="/register">
+            <i className="fa-solid fa-user-plus"></i>{' '}
             Register
           </Link>
         </li>
         <li>
           <Link to="/login">
-            Login
+          <i className="fa-solid fa-right-to-bracket"></i>{' '}Login
           </Link>
         </li>
       </ul>

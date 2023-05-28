@@ -10,7 +10,8 @@ import ProfileForm from './component/layout/profile/ProfileForm';
 import ExperienceForm from './component/layout/profile/ExperienceForm';
 import EducationForm  from './component/layout/profile/EducationForm';
 import Profiles from './component/layout/profiles/Profiles';
-import Profile from './component/layout/profile-page/Profile'
+import Profile from './component/layout/profile-page/Profile';
+import Posts from './component/layout/posts-page/Posts';
 
 import { useEffect } from 'react';
 import { loadUser } from './actions/auth';
@@ -69,6 +70,10 @@ function App() {
               />
               <Route path='/get-all-profiles' element={<Profiles />} />    
               <Route path='/profile/:id' element={<Profile />} />
+              <Route
+                  path='/posts'
+                  element={<PrivateRoute component={Posts} />}
+              />
             </Routes>
       </Router>
     </Provider>

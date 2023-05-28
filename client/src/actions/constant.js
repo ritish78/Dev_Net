@@ -15,3 +15,7 @@ export const DELETE_ACCOUNT = 'DELETE_ACCOUNT';
 export const GET_ALL_PROFILES = 'GET_ALL_PROFILES';
 export const GET_REPOS = 'GET_REPOS';
 export const RESET_PROFILE_LOADING = 'RESET_PROFILE_LOADING';
+export const GET_POSTS = 'GET_POSTS';
+export const POST_ERROR = 'POST_ERROR';
+export const UPDATE_LIKES = 'UPDATE_LIKES';
+export const DELETE_POST = 'DELETE_POST';
