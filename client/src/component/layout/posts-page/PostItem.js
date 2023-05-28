@@ -9,6 +9,7 @@ const PostItem = props => {
 
     const { auth,
             addLikeOrRemoveLikeOnPost, 
+            deletePostById,
             post: { 
                     _id,
                     user, 
@@ -22,14 +23,14 @@ const PostItem = props => {
     return (
         <div className="post bg-white p-1 my-1">
           <div>
-            <a href="profile.html">
+            <Link to={`/profile/${user}`}>
               <img
                 className="round-img"
                 src={avatar}
                 alt=""
               />
               <h4>{name}</h4>
-            </a>
+            </Link>
           </div>
           <div>
             <p className="my-1">
@@ -48,7 +49,7 @@ const PostItem = props => {
                     <span>{likes.length}</span>
               }
             </button>
-            <Link to={`/post/${_id}`} className="btn btn-primary">
+            <Link to={`/post/comment/${_id}`} className="btn btn-primary">
                 Comment{' '}
                     { 
                         comments && comments.length > 0 && 
@@ -61,7 +62,7 @@ const PostItem = props => {
                     className="btn btn-danger"
                     onClick={e => deletePostById(_id)}
                 >
-                    <i class="fa-solid fa-trash"></i>
+                    <i className="fa-solid fa-trash"></i>
                 </button>
             )}
           </div>

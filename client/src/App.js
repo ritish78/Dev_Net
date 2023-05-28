@@ -12,6 +12,7 @@ import EducationForm  from './component/layout/profile/EducationForm';
 import Profiles from './component/layout/profiles/Profiles';
 import Profile from './component/layout/profile-page/Profile';
 import Posts from './component/layout/posts-page/Posts';
+import Comment from './component/layout/comment-page/Comment';
 
 import { useEffect } from 'react';
 import { loadUser } from './actions/auth';
@@ -73,6 +74,10 @@ function App() {
               <Route
                   path='/posts'
                   element={<PrivateRoute component={Posts} />}
+              />
+              <Route
+                  path='/post/comment/:postId'
+                  element={<PrivateRoute component={Comment} />}
               />
             </Routes>
       </Router>

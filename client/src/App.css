@@ -237,6 +237,8 @@ img {
 
 .round-img {
   border-radius: 50%;
+  max-height: 300px;
+  max-width: 250px;
 }
 
 .line {

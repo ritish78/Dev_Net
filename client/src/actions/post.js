@@ -3,13 +3,45 @@ import { setAlert } from "./alert";
 import { 
     GET_POSTS, 
     POST_ERROR, 
-    UPDATE_LIKES ,
-    DELETE_POST
+    UPDATE_LIKES,
+    DELETE_POST,
+    CREATE_POST,
+    GET_POST,
+    DELETE_COMMENT,
+    ADD_COMMENT
 } from "./constant";
 
 
 //Creating a post by a user
+//Get all posts
+export const createAPost = (formData) => async (dispatch) => {
+    try {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
 
+        const res = await axios.post('/api/post', formData, config);
+
+        dispatch({
+            type: CREATE_POST,
+            payload: res.data
+        });
+
+        dispatch(
+            setAlert('Post Created Successfully', 'success')
+        )
+    } catch (error) {
+        dispatch({
+            type: POST_ERROR,
+            payload: {
+                msg: error.response,
+                status: error.response.status
+            }
+        })
+    }
+}
 
 
 
@@ -44,7 +76,7 @@ export const getPostById = postId => async (dispatch) => {
         const res = await axios.get(`/api/post/${postId}`);
 
         dispatch({
-            type: GET_POSTS,
+            type: GET_POST,
             payload: res.data
         });
 
@@ -89,7 +121,7 @@ export const addLikeOrRemoveLikeOnPost = (postId) => async (dispatch) => {
 export const deletePostById = (postId) => async (dispatch) => {
     try {
 
-        const res = await axios.delete(`/api/post/like/${postId}`);
+        const res = await axios.delete(`/api/post/${postId}`);
 
         dispatch({
             type: DELETE_POST,
@@ -98,6 +130,62 @@ export const deletePostById = (postId) => async (dispatch) => {
 
         dispatch(
             setAlert('Post Deleted Successfully', 'success')
+        )
+
+    } catch (error) {
+        dispatch({
+            type: POST_ERROR,
+            payload: {
+                msg: error.response,
+                status: error.response.status
+            }
+        })
+    }
+}
+
+
+//Delete comment by post id and comment id
+export const deleteComment = (postId, commentId) => async (dispatch) => {
+    try {
+
+        const res = await axios.delete(`/api/post/comment/${postId}/${commentId}`);
+
+        dispatch({
+            type: DELETE_COMMENT,
+            payload: commentId
+        })
+
+    } catch (error) {
+        dispatch({
+            type: POST_ERROR,
+            payload: {
+                msg: error.response,
+                status: error.response.status
+            }
+        })
+    }
+}
+
+
+//Add comment to a post
+export const addComment = (postId, formData) => async (dispatch) => {
+    try {
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+
+        const res = await axios.post(`/api/post/comment/${postId}`, formData, config);
+
+        dispatch({
+            type: ADD_COMMENT,
+            payload: res.data
+        });
+
+        dispatch(
+            setAlert('Commented on the post', 'success')
         )
 
     } catch (error) {

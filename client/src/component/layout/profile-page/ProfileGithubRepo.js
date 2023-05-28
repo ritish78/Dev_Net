@@ -32,8 +32,8 @@ const ProfileGithubRepo = props => {
                   <div>
                     <ul>
                       <li className="badge badge-primary"><i className="fa-solid fa-star"></i>  Stars: <span>{repo.stargazers_count}</span></li>
-                      <li className="badge badge-dark"><i class="fa-solid fa-eye"></i>  Watchers: <span>{repo.watchers_count}</span></li>
-                      <li className="badge badge-light"><i class="fa-solid fa-code-fork"></i>  Forks: <span>{repo.forks_count}</span></li>
+                      <li className="badge badge-dark"><i className="fa-solid fa-eye"></i>  Watchers: <span>{repo.watchers_count}</span></li>
+                      <li className="badge badge-light"><i className="fa-solid fa-code-fork"></i>  Forks: <span>{repo.forks_count}</span></li>
                     </ul>
                   </div>
                 </div>
