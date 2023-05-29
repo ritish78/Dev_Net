@@ -183,6 +183,8 @@ img {
 .alert-primary {
   background: var(--primary-color);
   color: #fff;
+  width: 30%;
+  text-align: center;
 }
 
 .btn-light,

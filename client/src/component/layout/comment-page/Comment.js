@@ -18,7 +18,7 @@ const Comment = props => {
     }, [getPostById, postId]);
 
 
-    if (loading) {
+    if (loading || post == null) {
         return <Spinner />
     }
 
