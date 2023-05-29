@@ -37,7 +37,7 @@ const PostItem = props => {
               {text}
             </p>
              <p className="post-date">
-                Posted on {formatDate(date, 9)}
+                Posted on {formatDate(date, 10)}
             </p>
             <button 
                     type="button" 

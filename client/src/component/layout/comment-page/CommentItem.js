@@ -24,7 +24,7 @@ const CommentItem = props => {
             </div>
             <div>
             <p className="my-1">{text}</p>
-            <p className="post-date">Posted on {formatDate(date, 9)}</p>
+            <p className="post-date">Posted on {formatDate(date, 10)}</p>
             {!auth.loading && user === auth.user._id && (
                 <button
                     onClick={() => deleteComment(postId, _id)}

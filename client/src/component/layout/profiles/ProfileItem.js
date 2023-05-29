@@ -1,16 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 
 const ProfileItem = props => {
-    const { profile: { skills, company, location, status, user: { _id, name, avatar} }  } = props;
+    const { auth, profile: { skills, company, location, status, user: { _id, name, avatar} }  } = props;
 
     return (
         <div className="profile bg-light">
             <img src={avatar} alt="" className="round-img" />
             <div>
-                <h2>{name}</h2>
+                <h2>{name} { auth.user._id === _id ? ' (You) ' : null }</h2>
                 <p>{status} { company && <span>at {company}</span>}</p>
                 <p className="my-1">{location && <span>{location}</span>}</p>
                 <Link to={`/profile/${_id}`} className="btn btn-primary">
@@ -33,4 +34,8 @@ ProfileItem.propTypes = {
     profile: PropTypes.object.isRequired
 }
 
-export default ProfileItem
+const mapStateToProps = state => ({
+    auth: state.auth
+})
+
+export default connect(mapStateToProps)(ProfileItem);
