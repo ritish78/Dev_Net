@@ -387,6 +387,11 @@ button {
   margin-bottom: 1rem;
 }
 
+.profile-you {
+  color: var(--primary-color);
+  font-size: 0.8em;
+}
+
 /* Profile Page */
 .profile-grid {
   display: grid;

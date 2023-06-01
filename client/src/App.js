@@ -13,6 +13,7 @@ import Profiles from './component/layout/profiles/Profiles';
 import Profile from './component/layout/profile-page/Profile';
 import Posts from './component/layout/posts-page/Posts';
 import Comment from './component/layout/comment-page/Comment';
+import NotFound from './component/layout/NotFound';
 
 import { useEffect } from 'react';
 import { loadUser } from './actions/auth';
@@ -79,6 +80,7 @@ function App() {
                   path='/post/comment/:postId'
                   element={<PrivateRoute component={Comment} />}
               />
+              <Route path='/*' element={<NotFound />} />
             </Routes>
       </Router>
     </Provider>

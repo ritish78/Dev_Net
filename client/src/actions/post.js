@@ -103,6 +103,7 @@ export const addLikeOrRemoveLikeOnPost = (postId) => async (dispatch) => {
             payload: { postId, likes: res.data }
         })
 
+        return res;
 
     } catch (error) {
         dispatch({

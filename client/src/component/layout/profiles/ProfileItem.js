@@ -11,7 +11,7 @@ const ProfileItem = props => {
         <div className="profile bg-light">
             <img src={avatar} alt="" className="round-img" />
             <div>
-                <h2>{name} { auth.user._id === _id ? ' (You) ' : null }</h2>
+                <h2>{name} <span className="profile-you">{ auth.user._id === _id ? ' (You) ' : null }</span></h2>
                 <p>{status} { company && <span>at {company}</span>}</p>
                 <p className="my-1">{location && <span>{location}</span>}</p>
                 <Link to={`/profile/${_id}`} className="btn btn-primary">
