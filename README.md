@@ -4,6 +4,7 @@ A networking app made using Rest APIs and React library.
 👉 Backend with Rest API is done. Users can do all the functionality provided by API using React on front end.
 
 # Other Enhancement will be done:
+- [ ] Add URL for user's profile picture
 - [ ] Make people be able to follow other developers
 - [ ] (Unlikely for this feature) Add functionality to set timer on posts so once the limit is reached, the post gets deleted
 - [ ] Add search functionality to **search** for users
