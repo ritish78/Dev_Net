@@ -6,12 +6,11 @@ A networking app made using Rest APIs and React library.
 # Other Enhancement will be done:
 - [ ] Add URL for user's profile picture
 - [ ] Make people be able to follow other developers
-- [ ] (Unlikely for this feature) Add functionality to set timer on posts so once the limit is reached, the post gets deleted
 - [ ] Add search functionality to **search** for users
 
 # Tech Stack used
 * Backend: `Node.js` as Runtime, `express` for server, `express-validator` for validating user input
-* Fronend: `React` Library which runs using `Javascript`. `Redux` is used for state management
+* Frontend: `React` Library which runs using `Javascript`. `Redux` is used for state management
 * Database: `MongoDB` using `Mongoose` npm package
 * Security: `Bcrypt` for hashing password, `JWT` for verifying current user
 
@@ -58,6 +57,10 @@ npm run dev
 Using redux, we can dispatch object actions to the store whenever some action takes place in the app. Below is an example of using Redux to manage the state of Profile.
 ![Profile State](https://github.com/ritish78/Dev_Net/assets/36816476/59b53f3d-a7c7-4cee-a2f4-8af9d2c561b9)
 
+
+# Screenshot: 
+* Landing Page: <br> ![Landing Page](https://github.com/ritish78/Dev_Net/assets/36816476/d1d5c9e3-74e7-4007-abda-5bb92f641613)
+* Clone the repo to see more. 
 
 # API Documentation:
 
