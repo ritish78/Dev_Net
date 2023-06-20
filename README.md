@@ -15,7 +15,12 @@ A networking app made using Rest APIs and React library.
 * Security: `Bcrypt` for hashing password, `JWT` for verifying current user
 
 # How to install:
-* First in your local terminal, run this command to clone the repository:
+* Easy way is to use docker. Run the command:
+```
+docker pull ritish56/devnet
+```
+
+* If you want to pull it in your local terminal without docker, run this command to clone the repository:
 ````
 git clone https://github.com/ritish78/Dev_Net.git
 ````
